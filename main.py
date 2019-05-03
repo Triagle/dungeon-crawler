@@ -26,7 +26,7 @@ def perform_player_action(level, player, monsters, action):
 
 
 def clean_up_monsters(monsters):
-    """ Remove a new set of monsters containing only those that aren't currently dead. """
+    """ Return a new set of monsters containing only those that aren't currently dead. """
     return {
         p: monster for p, monster in monsters.items() if not m.monster_dead(monster)
     }
