@@ -1,5 +1,4 @@
 from collections import namedtuple
-import math
 
 BASE_HP = 1
 BASE_HEARING = 10
@@ -79,6 +78,8 @@ def monster_path(monster_x, monster_y, target_x, target_y):
     (0, 1)
     >>> monster_path(0, 0, 0, 0)
     (0, 0) """
+    x_direction = 1 if target_x > monster_x else -1
+    y_direction = 1 if target_y > monster_y else -1
     if target_x == monster_x:
         x_direction = 0
     elif target_y == monster_y:
