@@ -4,6 +4,18 @@ BASE_HEALTH = 10
 BASE_DAMAGE = 1
 
 
+# A player is a tuple of four items (x, y, health, damage) where damage is the
+# amount of damage a player will inflict on a monster when attacking.
+# Example:
+# (0, 0, 10, 1)
+#  ^  ^  ^   ^
+#  |  |  |   |
+#  |  |  |   \- damage player will inflict on monsters when attacking
+#  |  |  \- current health of player
+#  |  \- y position of player
+#  \- x position of player
+
+
 def new_player(x, y):
     """ Return a new player at x, y based on stats.
 
@@ -55,5 +67,12 @@ def player_damage(player):
 
 
 def is_dead(player):
+    """ Return true if the player is dead.
+
+    Examples:
+    >>> is_dead((0, 0, 0, 1))
+    True
+    >>> is_dead((0, 0, 10, 1))
+    False """
     _, _, hp, _ = player
     return hp <= 0

@@ -5,6 +5,48 @@ BASE_HEARING = 10
 BASE_DAMAGE = 1
 
 
+# A monster is a tuple of three items, (hp, hearing, damage), where damage is
+# the amount of damage a monster will inflict on a player when attacking.
+#
+# Example:
+# (1, 10, 1)
+#  ^  ^   ^
+#  |  |   |
+#  |  |   \- The damage the monster will inflict on a player
+#  |  \- the radius of tiles a monster can hear the player in
+#  \- hp of the monster (just one hit to kill!)
+#
+# A monster's "hearing" will determine how close a player needs to be in order
+# for a monster to start pathing towards it. So if a monster has a hearing of 5
+# tiles in radius and the player is within 5 tiles in any direction then the
+# monster will begin pathing towards it. To see how it paths towards the player
+# see the docstring for monster.monster_path.
+#
+# Diagram:
+#
+#   ***********    - monster cannot hear player, so will not path to it
+#   ***********    - @ = player
+#   *********** @  - x = monster
+#   ***********
+#   *****x*****
+#   ***********
+#   ***********
+#   ***********
+#   ***********
+#   ***********
+#
+#   ***********    - monster can hear player, so will path to it
+#   ***********    - @ = player
+#   *******@***    - x = monster
+#   ***********
+#   *****x*****
+#   ***********
+#   ***********
+#   ***********
+#   ***********
+#   ***********
+
+
 def monster_dead(monster):
     """ Returns true if a monster is dead, that is their hp is less than or equal to zero.
 
