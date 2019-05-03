@@ -32,9 +32,10 @@ def player_inflict_damage(player, monster):
     Examples:
     >>> player_inflict_damage(new_player(0, 0), new_monster())
     (0, 10, 1) """
-    _, _, _, damage = player
-    hp, hear, m_damage = monster
-    return (hp - damage, hear, m_damage)
+    #######################
+    # YOUR CODE GOES HERE #
+    #######################
+    pass
 
 
 def player_position(player):
@@ -43,8 +44,10 @@ def player_position(player):
     Examples:
     >>> player_position(new_player(10, 10))
     (10, 10) """
-    x, y, _, _ = player
-    return x, y
+    #######################
+    # YOUR CODE GOES HERE #
+    #######################
+    pass
 
 
 def player_hp(player):
@@ -74,5 +77,7 @@ def is_dead(player):
     True
     >>> is_dead((0, 0, 10, 1))
     False """
-    _, _, hp, _ = player
-    return hp <= 0
+    #######################
+    # YOUR CODE GOES HERE #
+    #######################
+    pass

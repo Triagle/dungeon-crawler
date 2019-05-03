@@ -60,4 +60,7 @@ def load_level(filename):
 
 def level_is_occupied(level, x, y):
     """ Return True if the point at (x, y) is able to be moved to. """
-    return level.get((x, y)) == WALL or (x, y) not in level
+    #######################
+    # YOUR CODE GOES HERE #
+    #######################
+    pass

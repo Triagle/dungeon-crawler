@@ -56,8 +56,10 @@ def monster_dead(monster):
     >>> monster_dead((10, 1, 1))
     False
     """
-    (hp, _, _) = monster
-    return hp <= 0
+    #######################
+    # YOUR CODE GOES HERE #
+    #######################
+    pass
 
 
 def new_monster():
@@ -78,9 +80,10 @@ def monster_can_hear(monster, monster_x, monster_y, target_x, target_y):
     >>> monster_can_hear(new_monster(), 0, 0, 10, 11)
     False
     """
-    (_, hearing, _) = monster
-    dist = abs(monster_x - target_x) + abs(monster_y - target_y)
-    return dist <= hearing
+    #######################
+    # YOUR CODE GOES HERE #
+    #######################
+    pass
 
 
 def monster_inflict_damage(player, monster):
@@ -90,9 +93,10 @@ def monster_inflict_damage(player, monster):
     >>> player = (0, 0, 10, 1)
     >>> monster_inflict_damage(player, new_monster)
     (0, 0, 9, 1) """
-    x, y, hp, p_damage = player
-    _, _, damage = monster
-    return (x, y, hp - damage, p_damage)
+    #######################
+    # YOUR CODE GOES HERE #
+    #######################
+    pass
 
 
 def monster_path(monster_x, monster_y, target_x, target_y):
@@ -120,6 +124,9 @@ def monster_path(monster_x, monster_y, target_x, target_y):
     (0, 1)
     >>> monster_path(0, 0, 0, 0)
     (0, 0) """
+
+    # Whilst the code is included here, you should definitely still try to
+    # understand how the algorithm works!
     x_direction = 1 if target_x > monster_x else -1
     y_direction = 1 if target_y > monster_y else -1
     if target_x == monster_x:
