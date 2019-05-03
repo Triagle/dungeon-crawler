@@ -20,7 +20,9 @@ MONSTER = "x"
 def perform_player_action(level, player, monsters, action):
     """ Execute a given action, updating the level, player and monsters to reflect changes occurring as effects of the player's actions. """
     action_type = action[0]
-    x, y, health, p_damage = player
+    x, y = player_position(player)
+    damage = player_damage(player)
+    health = player_health(player)
     if action_type == QUIT:
         return level, player, monsters, True
     elif action_type == MOVE:
@@ -39,12 +41,14 @@ def perform_player_action(level, player, monsters, action):
 
 
 def clean_up_monsters(monsters):
+    """ Remove a new set of monsters containing only those that aren't currently dead. """
     return {
         p: monster for p, monster in monsters.items() if not m.monster_dead(monster)
     }
 
 
 def move_monsters(level, player, monsters):
+    """ Move all monsters on the level, attacking the player if allowed to do so. """
     x, y, health, p_damage = player
     new_monsters = {}
     for (m_x, m_y), monster in monsters.items():
@@ -69,7 +73,9 @@ def move_monsters(level, player, monsters):
 
 
 def draw_level(level, player, monsters):
-    p_x, p_y, hp, _ = player
+    """ Draw the current level, as well as the players and the monsters in the level to the console. """
+    p_x, p_y = player_position(player)
+    hp = player_hp(player)
     clear_screen()
     print(f"HP: {hp}")
     for y in range(MAX_Y):
@@ -86,10 +92,12 @@ def draw_level(level, player, monsters):
 
 
 def clear_screen():
+    """ Clear the terminal screen. """
     print("\x1bc")
 
 
 def read_player_input():
+    """ Read a player's input into an action, either quit or move in a given direction. """
     c = sys.stdin.read(1)[0]
     if c == "q":
         return QUIT
@@ -106,6 +114,7 @@ def read_player_input():
 
 
 def main():
+    # Set linux terminal input mode to allow character level input
     tty_settings = termios.tcgetattr(sys.stdin)
     tty.setcbreak(sys.stdin)
     level, player, monsters = load_level("level.txt")
@@ -129,6 +138,7 @@ def main():
 
         draw_level(level, player, monsters)
 
+    # restore linux terminal settings
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, tty_settings)
 
 
