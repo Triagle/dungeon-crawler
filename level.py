@@ -7,6 +7,7 @@ FLOOR = 2
 
 
 def load_level(filename):
+    """ Parse a level from a filename pointing to a level text file. """
     level = {}
     monsters = {}
     p = None
@@ -28,4 +29,5 @@ def load_level(filename):
 
 
 def level_is_occupied(level, x, y):
+    """ Return True if the point at (x, y) is able to be moved to. """
     return level.get((x, y)) == WALL or (x, y) not in level
