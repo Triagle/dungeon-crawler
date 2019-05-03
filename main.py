@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from level import *
+import level as l
 import monster as m
 import player as p
 import random
@@ -12,7 +12,7 @@ QUIT = 0
 MOVE = 1
 MAX_X = 60
 MAX_Y = 30
-TILES = {WALL: "#", FLOOR: "."}
+TILES = {l.WALL: "#", l.FLOOR: "."}
 PLAYER = "@"
 MONSTER = "x"
 
@@ -20,15 +20,15 @@ MONSTER = "x"
 def perform_player_action(level, player, monsters, action):
     """ Execute a given action, updating the level, player and monsters to reflect changes occurring as effects of the player's actions. """
     action_type = action[0]
-    x, y = player_position(player)
-    damage = player_damage(player)
-    health = player_health(player)
+    x, y = p.player_position(player)
+    damage = p.player_damage(player)
+    health = p.player_hp(player)
     if action_type == QUIT:
         return level, player, monsters, True
     elif action_type == MOVE:
         _, x_direction, y_direction = action
         new_x, new_y = x + x_direction, y + y_direction
-        if level_is_occupied(level, new_x, new_y):
+        if l.level_is_occupied(level, new_x, new_y):
             return level, player, monsters, False
         elif (new_x, new_y) in monsters:
             monsters[(new_x, new_y)] = p.player_inflict_damage(
@@ -36,7 +36,7 @@ def perform_player_action(level, player, monsters, action):
             )
             return level, player, monsters, False
         else:
-            player = (new_x, new_y, health, p_damage)
+            player = (new_x, new_y, health, p.player_damage(player))
             return level, player, monsters, False
 
 
@@ -58,11 +58,11 @@ def move_monsters(level, player, monsters):
 
         x_dir, y_dir = m.monster_path(m_x, m_y, x, y)
         new_x, new_y = m_x + x_dir, m_y + y_dir
-        if level_is_occupied(level, new_x, m_y):
+        if l.level_is_occupied(level, new_x, m_y):
             new_x = m_x
-        if level_is_occupied(level, m_x, new_y):
+        if l.level_is_occupied(level, m_x, new_y):
             new_y = m_y
-        if level_is_occupied(level, new_x, new_y):
+        if l.level_is_occupied(level, new_x, new_y):
             new_monsters[(m_x, m_y)] = monster
         elif x == new_x and y == new_y:
             player = m.monster_inflict_damage(player, monster)
@@ -74,8 +74,8 @@ def move_monsters(level, player, monsters):
 
 def draw_level(level, player, monsters):
     """ Draw the current level, as well as the players and the monsters in the level to the console. """
-    p_x, p_y = player_position(player)
-    hp = player_hp(player)
+    p_x, p_y = p.player_position(player)
+    hp = p.player_hp(player)
     clear_screen()
     print(f"HP: {hp}")
     for y in range(MAX_Y):
@@ -117,7 +117,7 @@ def main():
     # Set linux terminal input mode to allow character level input
     tty_settings = termios.tcgetattr(sys.stdin)
     tty.setcbreak(sys.stdin)
-    level, player, monsters = load_level("level.txt")
+    level, player, monsters = l.load_level("level.txt")
     draw_level(level, player, monsters)
     while True:
         action = read_player_input()
